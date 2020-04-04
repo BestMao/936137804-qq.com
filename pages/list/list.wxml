@@ -1,0 +1,17 @@
+<!--pages/list/list.wxml-->
+<view class="header">
+  <input placeholder="搜获"></input>
+</view>
+<view class="body">
+  <view class="item" wx:for="{{ shops }}" wx:key="id">
+    <image src="{{ item.images[0] }}"></image>
+    <view class="info">
+      <text class="name">{{ item.name }}</text>
+      <text class="moble">电话：{{ item.phone }}</text>
+      <text class="address">地址：{{ item.address }}</text>
+      <text class="time">营业时间{{ item.businessHours }}</text>
+    </view>
+    <text class="comment">{{ item.score }}</text>
+  </view>
+  
+</view>
