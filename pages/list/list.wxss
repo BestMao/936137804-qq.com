@@ -40,3 +40,10 @@
   border-radius: 20rpx;
   overflow: hidden;
 }
+.data-loading {
+  height: 100rpx;
+  background-color: #ccc;
+  color: #fff;
+  text-align: center;
+  line-height: 100rpx;
+}

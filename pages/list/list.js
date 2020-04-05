@@ -7,22 +7,37 @@ Page({
    */
   data: {
     shops:[],
-    categroise:''
+    categroise:{},
+    pageIndex:0,
+    pageSize:20,
+    hasMore:true,
+    flag:true
   },
-
+//数据刷新
+upMore() {
+  this.setData({flag:false})
+  if (!this.data.hasMore) return
+  let {pageIndex,pageSize}=this.data;
+  const params={_pages:++pageIndex,_limit:pageSize}
+  return fetch(`categories/${this.data.categroise.id}/shops`,params)
+  .then(res=>{
+    const shops=this.data.shops.concat(res.data)
+    const total = parseInt(res.header['x-total-count']) 
+    const hasMore=pageIndex*pageSize<total
+    const flag=!this.data.flag;
+    this.setData({shops,pageIndex,hasMore,flag});
+  })
+},
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     fetch(`categories/${options.cat}`).then(res=>{
-      this.setData({categroise:res.data.name});
+      this.setData({categroise:res.data});
       wx.setNavigationBarTitle({
         title:res.data.name
       });
-      return fetch(`categories/${options.cat}/shops`,{_pages:1,_limit:10})
-      .then(res=>{
-        this.setData({shops:res.data});
-      })
+      this.upMore()
     })
   },
 
@@ -30,9 +45,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.setNavigationBarTitle({
-      title:this.data.categroise
-    })
+
   },
 
   /**
@@ -60,14 +73,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({shops:[],pageIndex:0,hasMore:true});
+    this.upMore().then(()=>wx.stopPullDownRefresh())
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.flag) {
+      this.upMore()
+    }
   },
 
   /**
