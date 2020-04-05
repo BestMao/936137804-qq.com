@@ -1,6 +1,6 @@
 <!-- 轮播图 -->
 <swiper>
-  <swiper-item wx:for="{{ shops.images }}" wx:key="index">
+  <swiper-item wx:for="{{ shops.images }}" wx:key="index" indicator-dots="{{shops.images.length > 1}}" indicator-color="#bcc0c9" indicator-active-color="#3a4861">
     <image src="{{ item }}" bindtap="priview" data-url="{{ item }}"></image>
   </swiper-item>
 </swiper>
@@ -17,12 +17,12 @@
     <view class="item_info">
       <view class="name">{{ item.name }}</view>
       <view class="time">
-        <view class="rating">{{ item.rating }}</view>  
+        <view class="rating">{{ item.rating }}</view>
         <view class="date">{{ item.date }}</view>
       </view>
     </view>
     <view class="content">{{ item.content }}</view>
-    <view class="img" >
+    <view class="img">
       <image wx:for="{{ item.images }}" wx:key="index" src="{{util.size(item)}}"></image>
     </view>
   </view>
