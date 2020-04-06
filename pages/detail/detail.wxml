@@ -1,6 +1,6 @@
 <!-- 轮播图 -->
-<swiper>
-  <swiper-item wx:for="{{ shops.images }}" wx:key="index" indicator-dots="{{shops.images.length > 1}}" indicator-color="#bcc0c9" indicator-active-color="#3a4861">
+<swiper indicator-dots="{{shops.images.length > 1}}" indicator-color="#bcc0c9" indicator-active-color="#3a4861">
+  <swiper-item wx:for="{{ shops.images }}" wx:key="index" >
     <image src="{{ item }}" bindtap="priview" data-url="{{ item }}"></image>
   </swiper-item>
 </swiper>

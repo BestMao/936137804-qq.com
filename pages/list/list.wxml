@@ -14,6 +14,5 @@
     <text class="comment">{{ item.score }}</text>
   </navigator>
 </view>
-<view wx:if="{{ hasMore }}" class='data-loading'>数据加载中...</view>
 <view wx:if="{{hasMore}}" class="loadmore loading">正在加载...</view>
 <view wx:else class="loadmore">客官，没有更多了</view>
